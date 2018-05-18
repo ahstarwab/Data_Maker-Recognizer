@@ -51,6 +51,7 @@ class DrawView: UIView {
         drawPath.lineWidth = linewidth
         color.set()
         drawPath.stroke()
+        
     }
     
     
@@ -73,6 +74,8 @@ class DrawView: UIView {
         // scale and translate so we have the full digit and in MNIST standard size 28x28
         context!.translateBy(x: 0 , y: 28)
         context!.scaleBy(x: 28/self.frame.size.width, y: -28/self.frame.size.height)
+
+        //context!.translateBy(x: self.frame.size.width/2 , y: self.frame.size.height/2)
         
         // put view pixel data in context
         self.layer.render(in: context!)
