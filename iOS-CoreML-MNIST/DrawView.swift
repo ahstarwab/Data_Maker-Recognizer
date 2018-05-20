@@ -23,15 +23,39 @@ class DrawView: UIView {
     // we will keep touches made by user in view in these as a record so we can draw them.
     var lines: [Line] = []
     var lastPoint: CGPoint!
+    var max_x: CGFloat = 0.0
+    var min_x: CGFloat = 400.0
+    var max_y: CGFloat = 0.0
+    var min_y: CGFloat = 400.0
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         lastPoint = touches.first!.location(in: self)
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         let newPoint = touches.first!.location(in: self)
+        
         // keep all lines drawn by user as touch in record so we can draw them in view
         lines.append(Line(start: lastPoint, end: newPoint))
+        if lastPoint.x < min_x {
+            min_x = lastPoint.x
+            
+        }
+        
+        else if lastPoint.x > max_x {
+            max_x = lastPoint.x
+        }
+        
+        if lastPoint.y < min_y {
+            min_y = lastPoint.y
+        }
+            
+        else if lastPoint.y > max_y {
+            max_y = lastPoint.y
+        }
+        
+        
         lastPoint = newPoint
         // make a draw call
         setNeedsDisplay()
@@ -70,17 +94,66 @@ class DrawView: UIView {
         
         // this is where our view pixel data will go in once we make the render call
         let context = CGContext(data: nil, width: 28, height: 28, bitsPerComponent: 8, bytesPerRow: 28, space: colorSpace, bitmapInfo: bitmapInfo)
-        
-        // scale and translate so we have the full digit and in MNIST standard size 28x28
-        context!.translateBy(x: 0 , y: 28)
-        context!.scaleBy(x: 28/self.frame.size.width, y: -28/self.frame.size.height)
 
-        //context!.translateBy(x: self.frame.size.width/2 , y: self.frame.size.height/2)
         
+        //context!.translateBy(x: 0, y: 28)
+        //context!.scaleBy(x: 100/(max_x - min_x), y: 150/(max_y - min_y))
+        
+        
+        
+        
+        //context!.scaleBy(x: (self.frame.size.width) / (max_x - min_x), y: self.frame.size.height / (max_y - min_y))
+        
+  
+        
+        
+        /*아래 두 줄이 가운데로 정렬하는 코드*/
+        
+        
+        context!.translateBy(x:14, y:14)
+        context!.scaleBy(x: 100/(max_x - min_x), y: 150/(max_y - min_y))
+        context!.translateBy(x:-14, y:-14)
+        
+        context!.translateBy(x: (187 - (min_x + max_x)/2)/14 , y: 28 - (212 - (min_y + max_y)/2)/14)
+        context!.scaleBy(x: 28/(self.frame.size.width), y: -28/self.frame.size.height)
+        
+        
+        
+        
+        
+        //context!.translateBy(x:187, y:212)
+        //context!.scaleBy(x: 100/(max_x - min_x), y: 150/(max_y - min_y))
+        
+        
+        
+        
+        //context!.translateBy(x: (187 - (min_x + max_x)/2 )/14 , y: -1*((212 - (min_y + max_y)/2)/14) )
+        
+        //print((((187 - (min_x + max_x)/2)/14)*(max_x - min_x))/100, ((212 - (min_y + max_y)/2)/14)*(min_y - max_y)/150 )
+        // scale and translate so we have the full digit and in MNIST standard size 28x28
+        
+        //context!.translateBy(x: 0, y: 28)
+        
+        
+        
+        //context!.scaleBy(x: 56/(max_x - min_x), y: -56/(max_y - min_y))
+        
+        print(25/(max_x - min_x), -50/(max_y - min_y))
+        //print(lastPoint.x)
+        //context!.translateBy(x: self.frame.size.width/2 , y: self.frame.size.height/2)
+        //print(lastPoint)
         // put view pixel data in context
         self.layer.render(in: context!)
         
         return context
+    }
+    
+    func initialize_var(){
+        self.max_x = 0
+        self.min_x = 430
+        self.max_y = 0
+        self.min_y = 430
+        
     }
 }
 

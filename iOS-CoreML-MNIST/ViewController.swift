@@ -28,16 +28,18 @@ class ViewController: UIViewController {
     @IBAction func tappedClear(_ sender: Any) {
         drawView.lines = []
         drawView.setNeedsDisplay()
-        predictLabel.isHidden = true 
+        predictLabel.isHidden = true
+        drawView.initialize_var()
     }
     
     @IBAction func tappedDetect(_ sender: Any) {
         let context = drawView.getViewContext()
         
+        /*
         let a = drawView.draw
         a?.contentMode = UIViewContentMode.center
         a?.clipsToBounds = true
-        
+        */
         
         inputImage = context?.makeImage()
         let pixelBuffer = UIImage(cgImage: inputImage).pixelBuffer()
@@ -54,7 +56,7 @@ class ViewController: UIViewController {
         after_center.clipsToBounds = true
         */
         
-        let final = image(with: a!)
+        //let final = image(with: a!)
         
         
         
@@ -63,15 +65,13 @@ class ViewController: UIViewController {
         
         
         var file_name = "copy" + String(cnt) + ".png"
-        if let data = UIImagePNGRepresentation(final!) {
+        if let data = UIImagePNGRepresentation(UIImage(cgImage: inputImage)) {
             let filename = getDocumentsDirectory().appendingPathComponent(file_name)
             cnt += 1
             try? data.write(to: filename)
-            print("??")
             print(filename)
         }
         
- 
         
         //var _: Data = UIImagePNGRepresentation(UIImage(cgImage: inputImage))!
         //print(i)
