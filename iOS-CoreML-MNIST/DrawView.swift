@@ -110,8 +110,18 @@ class DrawView: UIView {
         /*아래 두 줄이 가운데로 정렬하는 코드*/
         
         
-        context!.translateBy(x:14, y:14)
-        context!.scaleBy(x: 100/(max_x - min_x), y: 150/(max_y - min_y))
+        context!.translateBy(x:14, y:12)
+        if 8 * (max_x - min_x) < max_y - min_y{
+            
+        }
+        
+        else{
+            context!.scaleBy(x: 180/(max_x - min_x), y: 200/(max_y - min_y))
+        }
+        
+        
+        print(max_x - min_x)
+        print(max_y - min_y)
         context!.translateBy(x:-14, y:-14)
         
         context!.translateBy(x: (187 - (min_x + max_x)/2)/14 , y: 28 - (212 - (min_y + max_y)/2)/14)
@@ -138,7 +148,6 @@ class DrawView: UIView {
         
         //context!.scaleBy(x: 56/(max_x - min_x), y: -56/(max_y - min_y))
         
-        print(25/(max_x - min_x), -50/(max_y - min_y))
         //print(lastPoint.x)
         //context!.translateBy(x: self.frame.size.width/2 , y: self.frame.size.height/2)
         //print(lastPoint)

@@ -17,7 +17,8 @@ class ViewController: UIViewController {
     
     let model = mnistCNN()
     var inputImage: CGImage!
-    var cnt = 0
+    
+    var cnt = 80    // 79까지 했으니까 다음에 할때 80으로 바꾸고 해야함!
     
     override func viewDidLoad() {
         super.viewDidLoad()
