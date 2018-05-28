@@ -18,7 +18,7 @@ class ViewController: UIViewController {
     let model = mnistCNN()
     var inputImage: CGImage!
     
-    var cnt = 80    // 79까지 했으니까 다음에 할때 80으로 바꾸고 해야함!
+    var cnt = 40
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,35 +36,29 @@ class ViewController: UIViewController {
     @IBAction func tappedDetect(_ sender: Any) {
         let context = drawView.getViewContext()
         
-        /*
-        let a = drawView.draw
-        a?.contentMode = UIViewContentMode.center
-        a?.clipsToBounds = true
-        */
         
         inputImage = context?.makeImage()
-        let pixelBuffer = UIImage(cgImage: inputImage).pixelBuffer()
+        
+        let rect = drawView.return_max_min()
+        let pic2 = cropImage(UIImage(cgImage: inputImage), toRect: rect!, viewWidth: 28, viewHeight: 28)
+        let pic = resizeImage(image: pic2!, newWidth: 28)
+        let pixelBuffer = pic.pixelBuffer()
         let output = try? model.prediction(image: pixelBuffer!)
+        let accuracy =  output?.output
         
-        //let before_center = (UIImage(cgImage: inputImage))
-        //var after_center = UIImageView(image: before_center)
-        
-        /*
-        after_center.contentMode = UIViewContentMode.center
-        after_center.clipsToBounds = true
-        
-        after_center.contentMode = UIViewContentMode.scaleAspectFill
-        after_center.clipsToBounds = true
-        */
-        
-        //let final = image(with: a!)
-        
-        
-        
+
         predictLabel.text = output?.classLabel
+       
         predictLabel.isHidden = false
+       
         
-        
+        if let data = UIImagePNGRepresentation(pic) {
+            let filename = getDocumentsDirectory().appendingPathComponent("2pop.png")
+            try? data.write(to: filename)
+            print(filename)
+        }
+                       
+        /*
         var file_name = "copy" + String(cnt) + ".png"
         if let data = UIImagePNGRepresentation(UIImage(cgImage: inputImage)) {
             let filename = getDocumentsDirectory().appendingPathComponent(file_name)
@@ -72,10 +66,7 @@ class ViewController: UIViewController {
             try? data.write(to: filename)
             print(filename)
         }
-        
-        
-        //var _: Data = UIImagePNGRepresentation(UIImage(cgImage: inputImage))!
-        //print(i)
+    */
         
     }
     
@@ -144,14 +135,47 @@ func getDocumentsDirectory() -> URL {
     return paths[0]
 }
 
-func image(with view: UIView) -> UIImage? {
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.0)
-    defer { UIGraphicsEndImageContext() }
-    if let context = UIGraphicsGetCurrentContext() {
-        view.layer.render(in: context)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        return image
+
+//func rotateImage(_ InputImage: UIImage,)
+
+
+func cropImage(_ inputImage: UIImage, toRect cropRect: CGRect, viewWidth: CGFloat, viewHeight: CGFloat) -> UIImage?
+{
+    //let imageViewScale = max(viewWidth / inputImage.size.width,
+    //                         viewHeight / inputImage.size.height)
+    let imageViewScale = CGFloat(1)
+    print(cropRect)
+    // Scale cropRect to handle images larger than shown-on-screen size
+    let cropZone = CGRect(x:cropRect.origin.x * imageViewScale,
+                          y:cropRect.origin.y * imageViewScale,
+                          width:cropRect.size.width * imageViewScale,
+                          height:cropRect.size.height * imageViewScale)
+    
+    print(cropZone)
+    // Perform cropping in Core Graphics
+    guard let cutImageRef: CGImage = inputImage.cgImage?.cropping(to:cropZone)
+        else {
+            return nil
     }
-    return nil
+    
+    // Return image to UIImage
+    let croppedImage: UIImage = UIImage(cgImage: cutImageRef)
+    return croppedImage
 }
+
+func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+    
+    let newHeight = newWidth
+    UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+    image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return newImage!
+}
+
+
+
+
+
 

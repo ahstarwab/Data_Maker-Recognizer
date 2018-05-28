@@ -13,7 +13,7 @@
 		A8363E521EF337AE00204285 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8363E511EF337AE00204285 /* Assets.xcassets */; };
 		A8363E551EF337AE00204285 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8363E531EF337AE00204285 /* LaunchScreen.storyboard */; };
 		A8363E5F1EF33C9C00204285 /* DrawView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8363E5E1EF33C9C00204285 /* DrawView.swift */; };
-		D31C525D20B2E10B001C506A /* mnistCNN.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D31C525C20B2E10B001C506A /* mnistCNN.mlmodel */; };
+		D31C525F20B3D7AF001C506A /* mnistCNN.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = D31C525E20B3D7AF001C506A /* mnistCNN.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		A8363E541EF337AE00204285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A8363E561EF337AE00204285 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A8363E5E1EF33C9C00204285 /* DrawView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
-		D31C525C20B2E10B001C506A /* mnistCNN.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = mnistCNN.mlmodel; path = ../../mnistCNN.mlmodel; sourceTree = "<group>"; };
+		D31C525E20B3D7AF001C506A /* mnistCNN.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = mnistCNN.mlmodel; path = ../../../Desktop/mnistCNN.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,8 +59,8 @@
 			isa = PBXGroup;
 			children = (
 				A8363E4A1EF337AE00204285 /* AppDelegate.swift */,
-				D31C525C20B2E10B001C506A /* mnistCNN.mlmodel */,
 				A8363E4C1EF337AE00204285 /* ViewController.swift */,
+				D31C525E20B3D7AF001C506A /* mnistCNN.mlmodel */,
 				A8363E4E1EF337AE00204285 /* Main.storyboard */,
 				A8363E511EF337AE00204285 /* Assets.xcassets */,
 				A8363E531EF337AE00204285 /* LaunchScreen.storyboard */,
@@ -144,7 +144,7 @@
 			files = (
 				A8363E4D1EF337AE00204285 /* ViewController.swift in Sources */,
 				A8363E5F1EF33C9C00204285 /* DrawView.swift in Sources */,
-				D31C525D20B2E10B001C506A /* mnistCNN.mlmodel in Sources */,
+				D31C525F20B3D7AF001C506A /* mnistCNN.mlmodel in Sources */,
 				A8363E4B1EF337AE00204285 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
